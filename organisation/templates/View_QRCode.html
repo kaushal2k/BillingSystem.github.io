@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<center>
+
+    <h3>Company Name = {{ org }}</h3>
+    <h3>Customer Name = {{ cust }}</h3>
+    <h3>Invoice No = {{ invo.Invoice_num }}</h3>
+    <h3>Total Bill = {{ tot }}</h3>
+    <img src="{{ invo.qrcode.url }}" height="400" width="400">
+
+</center>
+{% endblock %}

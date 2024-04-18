@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block body %}
+
+            <div class="row">
+                <div class="col-md-12">
+                      <!--    Striped Rows Table  -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Invoices
+                        </div>
+                            <a href="{% url 'productform' %}" class="btn btn-primary pull-right" style="margin-top:8px;margin-right:8px;">
+                                <i class="fa fa-plus"></i>
+                                Add Product
+                            </a>
+                            <a href="{% url 'invoiceform' %}" class="btn btn-primary pull-right" style="margin-top:8px;margin-right:8px;">
+                                <i class="fa fa-plus"></i>
+                                Add Invoice
+                            </a>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Customer Name</th>
+                                            <th>Total Invoice</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for i,j in data %}
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'invopage' i.id %}">{{ i.cust_name }}</a>
+                                            </td>
+                                            <td>{{ j }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  End  Striped Rows Table  -->
+                </div>
+            </div>
+
+        <script>
+
+        $(document).ready(function(){
+          $( "#autoCustomerField" ).autocomplete({
+                source: autoCustomerList,
+                change: function(event, ui) {
+                    if (ui.item == null || ui.item == undefined) {
+                    }
+                    else{
+                        if (ui.item) {
+                            $( "#autoCustomerField" ).val( ui.item.label );
+                            $( event.target ).attr("data-oldval", ui.item.label );
+                            $( "#hidden-companyname" ).val( ui.item.value);
+
+                        }
+                    }
+                },
+                select: function( event, ui ) {
+                    $( "#autoCustomerField" ).val( ui.item.label );
+                    $( event.target ).attr("data-oldval", ui.item.label );
+                    $( "#hidden-companyname" ).val( ui.item.value);
+                    return false;
+                }, minLength:0
+            }).focus(function(){
+                    $(this).autocomplete("search");
+            });
+        });
+
+        </script>
+    {% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block body %}
+
+            <div class="row">
+                <div class="col-md-12">
+                      <!--    Striped Rows Table  -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            {{ cust.cust_name }} - {{ cust.contact_num }}
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Invoice Number</th>
+                                            <th>Total Products</th>
+                                            <th>Total</th>
+                                            <th>Action</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for inv,pr,pt in invo %}
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'detailpage' inv.id %}">{{ inv.Invoice_num }}</a>
+                                            </td>
+                                            <td>{{ pr }}</td>
+                                            <td>{{ pt }}</td>
+                                            <td>
+                                                <a href="{% url 'InvoUp' inv.id %}" class="btn">
+                                                <i class="btn-icon-only fa fa-edit"></i>
+                                                Edit
+                                                </a>
+                                            </td>
+                                            <td>
+                                            <a href="{% url 'InvoDel' inv.id %}" class="btn btn-danger" value="Delete" name="btndelete">
+                                                Delete
+                                            </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  End  Striped Rows Table  -->
+                </div>
+            </div>
+<script>
+
+$(document).ready(function(){
+  $( "#autoCustomerField" ).autocomplete({
+        source: autoCustomerList,
+        change: function(event, ui) {
+            if (ui.item == null || ui.item == undefined) {
+            }
+            else{
+                if (ui.item) {
+                    $( "#autoCustomerField" ).val( ui.item.label );
+                    $( event.target ).attr("data-oldval", ui.item.label );
+                    $( "#hidden-companyname" ).val( ui.item.value);
+
+                }
+            }
+        },
+        select: function( event, ui ) {
+            $( "#autoCustomerField" ).val( ui.item.label );
+            $( event.target ).attr("data-oldval", ui.item.label );
+            $( "#hidden-companyname" ).val( ui.item.value);
+            return false;
+        }, minLength:0
+    }).focus(function(){
+            $(this).autocomplete("search");
+    });
+});
+
+</script>
+    {% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block body %}
+
+            <div class="row">
+                <div class="col-md-12">
+                      <!--    Striped Rows Table  -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Products
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Products</th>
+                                            <th>Action</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for i in prod_data %}
+                                        <tr>
+                                            <td>{{ i.Product_name }}</td>
+                                            <td>
+                                                <a href="{% url 'ProdUp' i.id %}" class="btn">
+                                                <i class="btn-icon-only fa fa-edit"></i>
+                                                Update
+                                                </a>
+                                            </td>
+                                            <td>
+                                            <a href="{% url 'ProdDel' i.id %}" class="btn btn-danger" value="Delete" name="btndelete">
+                                                Delete
+                                            </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  End  Striped Rows Table  -->
+                </div>
+            </div>
+
+    {% endblock %}

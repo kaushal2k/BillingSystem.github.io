@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="row">
+                <div class="col-md-12">
+                      <!--    Striped Rows Table  -->
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Product Name</th>
+                                            <th>Customer Quantity</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for i in data %}
+                                        <tr>
+                                            <td>{{i.Product_name}}</td>
+                                            <td>{{ i.Qty }}</td>
+                                            <td>
+                                                <a href="{% url 'updateaddProductForm' i.id %}" class="btn">
+                                                <i class="btn-icon-only fa fa-edit"></i>
+                                                Edit
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  End  Striped Rows Table  -->
+                </div>
+            </div>
+
+    {% endblock %}

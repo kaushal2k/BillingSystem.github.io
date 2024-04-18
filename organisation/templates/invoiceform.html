@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="col-sm-12"> <!-- col-sm-offset-1 -->
+<div class="panel panel-primary panel-default">
+                        <div class="panel-heading text-center">
+                           Invoice Details
+                        </div>
+                        <div class="panel-body">
+                            <form role="form" method="post">
+                            {% csrf_token %}
+                                <input type="hidden" name="Invoice_num" value="{{ data.Invoice_num }}">
+
+                                <div class="form-group">
+                                    <label>Invoice Type*</label>
+                                    <input class="form-control" type="text" id="id_Invoice_type" name="Invoice_type" value="{{ data.Invoice_type }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Date*</label>
+                                    <input class="form-control" placeholder="mm/dd/yyyy" name="Date" type="date" id="id_Date" value="{{ data.Date|date:'Y-m-d' }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>DISPATCH THROUGH*</label>
+                                    <input class="form-control" type="text" id="id_Dispatch_through" name="Dispatch_through" value="{{ data.Dispatch_through }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Due Date*</label>
+                                    <input class="form-control" placeholder="mm/dd/yyyy" name="Due_date" type="date" id="id_Due_date" value="{{ data.Due_date|date:'Y-m-d' }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Bank*</label>
+                                    <input class="form-control" type="text" id="id_Bank" name="Bank" value="{{ data.Bank }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Payment Type*</label>
+                                    <input class="form-control" type="text" id="id_Payment_type" name="Payment_type" value="{{ data.Payment_type }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Payment Note*</label>
+                                    <textarea class="form-control" id="id_Payment_note" name="Payment_note" required>{{data.Payment_note}}</textarea>
+                                </div>
+								<div class="form-group">
+                                    <label>Terms & Conditions*</label>
+                                    <textarea class="form-control" name="T_c" id="id_T_c" placeholder="Enter your terms &amp; condition" required>{{ data.T_c }}</textarea>
+                                </div>
+								<div class="form-group">
+                                    <label>Document Note / Remarks (Not Visible on Print)</label>
+                                    <textarea class="form-control" id="id_Document_note" name="Document_note" required>{{ data.Document_note }}</textarea>
+                                </div>
+
+
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="panel panel-primary panel-default">
+                                        <div class="panel-heading text-center">
+                                        Customer Details
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <label>M/S.</label>
+												<select name="Cust_name" required>
+                                                    {% for cust1 in cust %}
+                                                    <option value="{{ cust1 }}" >
+                                                        {{ cust1 }}
+                                                    </option>
+                                                    {% endfor %}
+												</select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                <button class="btn btn-danger" type="submit">SAVE</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                        </div>
+{% endblock %}

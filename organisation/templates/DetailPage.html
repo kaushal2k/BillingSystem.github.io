@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% block body %}
+								<h3 class="text-center">Invoice</h3>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="panel panel-primary panel-default">
+                                        <div class="panel-heading text-center">
+                                        Customer Details
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <label>M/S.</label>
+												<select name="Cust_name" required disabled>
+													<option>{{ cust.cust_name }}</option>
+												</select>
+                                            </div>
+											<div class="form-group">
+                                    			<label>Address</label>
+                                    			<textarea class="form-control" required disabled>{{ cust.address }}</textarea>
+											</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+				<div class="col-sm-12"> <!-- col-sm-offset-1 -->
+					<div class="panel panel-primary panel-default">
+                        <div class="panel-heading text-center">
+                           Invoice Detail
+                        </div>
+                        <div class="panel-body">
+                            <form role="form">
+
+                                <div class="form-group">
+                                    <label>Invoice Type</label>
+                                    <input value="{{ invo.Invoice_type }}" class="form-control" type="text" required disabled/>
+                                </div>
+								<div class="form-group">
+                                    <label>Invoice Number</label>
+                                    <input value="{{ invo.Invoice_num }}" class="form-control" type="text" required disabled/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Date</label>
+                                    <input value="{{ invo.Date }}" class="form-control" type="text" required disabled/>
+                                </div>
+                                <div class="form-group">
+                                    <label>DISPATCH THROUGH</label>
+                                    <input value="{{ invo.Dispatch_through }}" class="form-control" type="text" required disabled/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Due Date</label>
+                                    <input value="{{ invo.Due_date }}" class="form-control" type="text" required disabled/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Bank</label>
+                                    <input value="{{ invo.Bank }}" class="form-control" type="text" required disabled/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Payment Type</label>
+                                    <input value="{{ invo.Payment_type }}" class="form-control" type="text" required disabled/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Payment Note</label>
+                                    <textarea class="form-control" required disabled>{{ invo.Payment_note }}</textarea>
+                                </div>
+								<div class="form-group">
+                                    <label>Terms & Conditions</label>
+                                    <textarea rows="5" class="form-control" required disabled>{{ invo.T_c }}</textarea>
+                                </div>
+								<div class="form-group">
+                                    <label>Document Note / Remarks (Not Visible on Print)</label>
+                                    <textarea class="form-control" disabled>{{ invo.Document_note }}</textarea>
+                                </div>
+
+                            </form>
+                            </div>
+                        </div>
+                        </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                      <!--    Striped Rows Table  -->
+                    <div class="panel panel-primary panel-default">
+                        <div class="panel-heading text-center">
+                            Product Items
+                        </div>
+                        <a href="{% url 'productform' %}" class="btn btn-danger pull-left" style="margin-top:8px;margin-left:20px;">
+                            <i class="fa fa-plus"></i>
+                            Add New Product
+                        </a>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>PRODUCT / OTHER CHARGES</th>
+                                            <th>HSN/SAC CODE</th>
+                                            <th>QTY.</th>
+                                            <th>PRICE</th>
+                                            <th>DISC (RS)</th>
+                                            <th>CGST (RS)</th>
+                                            <th>SGST (RS)</th>
+                                            <th>IGST (RS)</th>
+                                            <th>CESS</th>
+                                            <th>TOTAL</th>
+                                            <th>Action</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    {% for i in prod %}
+                                        <tr>
+                                        <td>
+
+											<input type="text"  value="{{ i.Product_name }}" readonly = "readonly" disabled>
+										</td>
+										<td>
+											<input type="text"  style="width:60px;"  value="{{ i.Hsn_code }}" readonly = "readonly" disabled>
+										</td>
+										<td>
+											<input type="text" style="width:50px;" value="{{ i.Qty }}" readonly = "readonly" disabled>
+											<label class="product-quantity-available"></label>
+										</td>
+										<td>
+											<input type="text" style="width:100px;" value="{{ i.Price }}" readonly = "readonly" disabled>
+											<label class="customer_rate_label"></label>
+										</td>
+										<td class="discount_field">
+											<input type="text"  style="width:50px;" value="{{ i.Discount }}" readonly = "readonly" disabled>
+
+										</td>
+										<td>
+											<input type="text" style="width:30px;" value="{{ i.Cgst }}" readonly = "readonly" disabled>
+										</td>
+
+										<td>
+											<input type="text" style="width:30px;" value="{{ i.Sgst }}" readonly = "readonly" disabled>
+										</td>
+
+										<td>
+											<input type="text" style="width:30px;" value="{{ i.Igst }}" readonly = "readonly" disabled>
+										</td>
+
+										<td>
+											<input type="text" value="{{ i.Cess }}" style="width:40px;" readonly disabled><br>
+
+
+										</td>
+										<td style="width:90px;">
+											<center>
+												<input type="text" class="line_total" style="width:80px;" value="{{ i.Total }}" readonly disabled>
+											</center>
+										</td>
+										<td>
+											<center>
+												<a href="{% url 'ProdUp' i.id %}" class="btn btn-primary btnadd-product-line btnadd-row-item">Update</a></center>
+											</td><td><center>
+												<a href="{% url 'ProdDel' i.id %}" class="btn btn-danger btnremove-product-line btnremove-row-item" >Delete</a>
+												</center></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  End  Striped Rows Table  -->
+                </div>
+
+				<div class="text-center">
+					<h2>Grand Total: <input type="text" value="{{tot}}" disabled></h2>
+                    <form method="post" action="" id="product_invoice_form" novalidate="novalidate">
+                        <input type="hidden" name="hidden_submit_form_data" id="hidden_submit_form_data" value="yes">
+                        <a href="{% url 'pdf' invo.id %}" type="submit" id="save" name="save" class="btn btn-warning">
+
+                                <i class="fa fa-save"></i>
+                                Print
+
+                        </a>
+                    </form>
+                </div>
+{% endblock %}
